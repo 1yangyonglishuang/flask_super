@@ -7,6 +7,7 @@
 # version    ：python 3.7-32bit
 # Description：
 """
+import os
 
 
 class Person(object):
@@ -28,5 +29,6 @@ class Person(object):
 
 
 person = Person("男")
-# print(dict(person))
 print(person.__dict__)
+print("environment".upper())
+print(os.environ["ENVIRONMENT"])
