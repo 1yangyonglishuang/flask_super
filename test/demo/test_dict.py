@@ -30,5 +30,7 @@ class Person(object):
 
 person = Person("男")
 print(person.__dict__)
-print("environment".upper())
-print(os.environ["ENVIRONMENT"])
+print(dict(Person("女")))
+# print("environment".upper())
+# print(os.environ["ENVIRONMENT"])
+

@@ -40,3 +40,5 @@ def _register_user_by_email():
         account=email_form.account.data,
         secret=email_form.secret.data,
         nickname=email_form.nickname.data)
+
+

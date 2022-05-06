@@ -7,3 +7,5 @@
 # version    ：python 3.7-32bit
 # Description：
 """
+SQLALCHEMY_TRACK_MODIFICATIONS = True
+SQLALCHEMY_COMMIT_TEARDOWN = True

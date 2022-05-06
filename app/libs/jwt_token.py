@@ -13,7 +13,6 @@ import jwt
 from dataclasses import dataclass
 from flask import current_app
 from jwt import ExpiredSignatureError, DecodeError
-
 from app.libs.api_exceptions.exceptions import JWTVerifyException
 
 
@@ -32,17 +31,14 @@ def generate_payload(uid, auth=None, scope=None, ac_type="email"):
 def generate_token(payload: dict, expiry: int, secret=None):
     _payload = {"exp": datetime.datetime.now() + datetime.timedelta(seconds=expiry)}
     _payload.update(payload)
-
     if not secret:
         secret = current_app.config["SECRET_KEY"]
-
     return jwt.encode(_payload, secret, algorithm="HS256")
 
 
 def verify_token(token, secret=None):
     if not secret:
         secret = current_app.config["SECRET_KEY"]
-
     try:
         payload = jwt.decode(token, secret, algorithms=["HS256"])
     except ExpiredSignatureError:
