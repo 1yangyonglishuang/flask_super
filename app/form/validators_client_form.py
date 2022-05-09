@@ -8,11 +8,10 @@
 # Description：
 """
 
-from wtforms import  StringField, IntegerField, EmailField
+from wtforms import StringField, IntegerField, EmailField
 from wtforms.validators import DataRequired, length, Email, Regexp, ValidationError
 
-from app.libs.api_exceptions.exceptions import ClientException
-from app.libs.baseform import BaseForm
+from app.form.baseform import BaseForm
 from app.libs.enums import ClientTypeEnum
 from app.models.user import User
 
@@ -29,8 +28,6 @@ class ClientForm(BaseForm):
             self.type.data = client
         except ValidationError as e:
             raise ValidationError(e)
-
-
 
 
 class UserEmailForm(ClientForm):

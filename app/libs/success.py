@@ -12,7 +12,7 @@ from app.libs.api_exceptions.api_exception import APIException
 
 class Success(APIException):
     msg = 'ok'
-    error_code = 1000
+    error_code = -2
     code = 200
 
 
