@@ -9,7 +9,7 @@
 """
 
 from app.libs.red_print import RedPrint
-from flask import jsonify, g
+from flask import jsonify, g, request
 
 from app.libs.success import DeleteSuccess
 from app.libs.token_auth import auth
@@ -46,6 +46,14 @@ def delete_user():
     return DeleteSuccess()
 
 
-@api.route("/create")
+@api.route("/create", methods=["POST"])
 def create_user():
+    data = request.json
+    with db.auto_commit():
+        user = User()
+        user.nickname = data.get('nickname')
+        user.email = data.get('account')
+        user.password = data.get('secret')
+        db.session.add(user)
+
     return "create user"

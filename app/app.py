@@ -10,6 +10,8 @@
 
 from app import Flask
 from app.api.v1 import register_blueprint_v1
+from app.models.base import db
+from gevent import pywsgi
 
 
 def _register_blueprint(app: Flask):
@@ -17,7 +19,6 @@ def _register_blueprint(app: Flask):
 
 
 def _register_plugin(app: Flask):
-    from app.models.base import db
     db.init_app(app)
     with app.app_context():
         db.create_all()
@@ -29,4 +30,6 @@ def create_app():
     app.config.from_object('app.config.settings')
     _register_blueprint(app)
     _register_plugin(app)
+    # server = pywsgi.WSGIServer(('0.0.0.0', 8848), app)
+    # server.serve_forever()
     return app

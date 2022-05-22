@@ -9,10 +9,13 @@
 """
 from werkzeug.exceptions import HTTPException
 
-from app.app import create_app
+from app.app import create_app, db
 from app.libs.api_exceptions.api_exception import APIException
+from flask_script import Manager
+from flask_migrate import Migrate, MigrateCommand
 
 app = create_app()
+migrate = Migrate(app=app, db=db)
 
 
 @app.errorhandler(Exception)
@@ -25,8 +28,11 @@ def framework_error(e):
         error_code = 1007
         return APIException(msg, code, error_code)
     else:
-        return APIException(str(e))
+        return APIException("api exception" + str(e))
 
+
+manager = Manager(app)
+manager.add_command('db', MigrateCommand)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    manager.run()
